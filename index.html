@@ -4,126 +4,99 @@
 		<meta charset=utf-8>
 		<link rel=stylesheet href=styles.css>
 		<link href=atom.xml type=application/atom+xml rel=alternate title="Atom feed (for state changes)">
-		<title>Are we web yet? Getting there.</title>
+		<title>Are we concurrent yet? Getting there.</title>
 	</head>
 	<body>
 		<header>
-			<h1>Are we <i>web</i> yet?</h1>
+			<h1>Are we <i>concurrent</i> yet?</h1>
 			<p><strong>Getting there.</strong>
-			<em>(You can use Rust for web stuff, but the ecosystem isn’t mature yet.)</em>
+			<em>(You can use Rust for concurrent stuff, but the ecosystem isn’t mature yet.)</em>
 		</header>
 
-		<h2 id=server>The server story</h2>
-		<p>These are the pieces we need before we’ll be ready for generally serious web development.
 		<table>
 			<thead>
 				<tr>
 					<th>Done?</th>
 					<th>Item</th>
 					<th>Library</th>
+					<th>Description</th>
 					<th>State</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td class=done title=Yes></td>
-					<td colspan=2>Rust itself</td>
+					<td rowspan=5 class=done title=Yes></td>
+					<td rowspan=5>Rust itself</td>
+				</tr>
+        <tr>
+					<td><a href=https://doc.rust-lang.org/std/thread/index.html>Threads</a></td>
+          <td>N/A</td>
 					<td class=yes>Stable</td>
-				</tr>
+        </tr>
+        <tr>
+					<td><a href=https://doc.rust-lang.org/std/sync/mpsc/>Channels</a></td>
+          <td>N/A</td>
+					<td class=yes>Stable</td>
+        </tr>
+        <tr>
+					<td><a href=https://doc.rust-lang.org/std/rc/index.html>Reference counting</a></td>
+          <td>Shared memory</td>
+					<td class=yes>Stable</td>
+        </tr>
+        <tr>
+					<td><a href=https://doc.rust-lang.org/std/sync/struct.Arc.html>Atomic Reference counting</a></td>
+          <td>Shared memory</td>
+					<td class=yes>Stable</td>
+        </tr>
 				<tr>
-					<td rowspan=2 class=done title=Almost></td>
-					<td rowspan=2>HTTP server</td>
-					<td><a href=https://github.com/hyperium/hyper>Hyper</a></td>
+					<td rowspan=3 class=done title=Almost></td>
+					<td rowspan=3>I/O</td>
+					<td><a href=https://github.com/carllerche/mio>MIO - Metal IO</a></td>
+          <td>Event based I/O library</td>
 					<td class=almost>Functional, but under active development</td>
 				</tr>
 				<tr>
-					<td><a href=https://github.com/frewsxcv/tiny-http>tiny-http</a></td>
+					<td><a href=https://github.com/dpc/mioco>mioco</a></td>
+          <td>Coroutine-based, async I/O handling</td>
 					<td class=almost>Functional, but under active development</td>
 				</tr>
 				<tr>
-					<td rowspan=2 class=done title=Almost></td>
-					<td rowspan=2>Database drivers</td>
-					<td><a href=https://github.com/sfackler/rust-postgres>rust-postgres</a></td>
-					<td class=yes>Functional, though still prone to change</td>
-				</tr>
-				<tr>
-					<td><a href=https://github.com/mitsuhiko/redis-rs>redis-rs</a></td>
-					<td class=yes>Functional, though still prone to change</td>
+					<td><a href=https://github.com/tailhook/rotor>Rotor</a></td>
+          <td>I/O in simple and composable way</td>
+					<td class=almost>Functional, but under active development</td>
 				</tr>
 				<tr>
 					<td rowspan=4 class=done title=Almost></td>
-					<td rowspan=4>Frameworks</td>
-					<td><a href=http://ironframework.io/>Iron</a></td>
-					<td class=yes>Ready, though still prone to change</td>
+					<td rowspan=4>Other</td>
+					<td><a href=https://github.com/aturon/crossbeam>crossbeam</a></td>
+          <td>Support for parallelism and low-level concurrency in Rust</td>
+					<td class=almost>Functional, though still prone to change</td>
 				</tr>
 				<tr>
-					<td><a href=http://conduit-rust.github.io/conduit/conduit/index.html>Conduit</a></td>
-					<td class=almost>Functional, but under development</td>
+					<td><a href=https://github.com/carllerche/eventual>Eventual</a></td>
+          <td>Futures & Streams for Rust</td>
+					<td class=almost>Functional, though still prone to change</td>
 				</tr>
 				<tr>
-					<td><a href=https://github.com/Ogeon/rustful/>rustful</a></td>
-					<td class=almost>Functional, but under development</td>
+					<td><a href=https://github.com/gamazeps/RobotS>RobotS</a></td>
+          <td>Actor system for Rust</td>
+					<td class=almost>Functional, though still prone to change</td>
 				</tr>
 				<tr>
-					<td><a href=http://nickel.rs/>Nickel</a></td>
-					<td class=almost>Functional, but under development</td>
-				</tr>
-				<tr>
-					<td class=done title=No></td>
-					<td>Email</td>
-					<td colspan=2></td>
-				</tr>
-				<tr>
-					<td class=done title=No></td>
-					<td colspan=3>Several hundred thousand things about the place</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<p>… plus most people will want a fancy ORM, a full‐stack framework, <i>&amp;c. ad infinitum</i>.
-
-		<p><small>(OK, I admit it. Mildly exotic Unicode symbols and lots of colours entrapped me and so I made a fancy table layout rather than just a list with ☑ or ☐.)</small>
-
-		<h2>The client side</h2>
-		<p>The requirements for clients tend to be much simpler than those for servers; very often just a straightforward HTTP library is enough.
-
-		<table>
-			<thead>
-				<tr>
-					<th>Done?</th>
-					<th>Item</th>
-					<th>Library</th>
-					<th>State</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td class=done title=Yes></td>
-					<td colspan=2>Rust itself</td>
-					<td class=yes>Stable</td>
-				</tr>
-				<tr>
-					<td rowspan=2 class=done title=Almost></td>
-					<td rowspan=2>HTTP client</td>
-					<td><a href=https://github.com/hyperium/hyper>Hyper</a></td>
-					<td class=almost>Functional, but under active development</td>
-				</tr>
-				<tr>
-					<td><a href=https://github.com/carllerche/curl-rust>curl-rust</a></td>
-					<td class=almost>Functional, but under active development</td>
-				</tr>
-				<tr>
-					<td class=done title=No></td>
-					<td colspan=3>A million and one things on the periphery (robots.txt, oAuth, <i>&amp;c.</i>)</td>
+					<td><a href=https://github.com/nikomatsakis/rayon/>Rayon</a></td>
+          <td>A data parallelism library for Rust</td>
+					<td class=almost>Functional, though still prone to change</td>
 				</tr>
 			</tbody>
 		</table>
 
 		<footer>
-			<p>By <a href=http://chrismorgan.info/>Chris Morgan</a> et al.; licensed <a rel=license href=http://creativecommons.org/licenses/by/3.0/>CC-BY</a>.
+			<p>By <a href=http://carlosgaldino.com/about.html>Carlos Galdino</a> et al.; licensed <a rel=license href=http://creativecommons.org/licenses/by/3.0/>CC-BY</a>.</p>
 
-			<p>Just at present this site is rather lacking in detail. It could do with a lot more fleshing out of the sorts of things that people will want before they will consider Rust ready for web development. If you want to improve it—<wbr><a href=https://github.com/teepee/arewewebyet>please do</a>.
-		</footer>
+      <p>The original code was created by <a href=http://chrismorgan.info/>Chris Morgan</a> for the <a href=http://arewewebyet.com>Are we web yet?</a> page.</p>
+
+      <p>Just at present this site is rather lacking in detail. It could do with a lot more fleshing out of the sorts of things that people will want before they will consider Rust ready for concurrency. If you want to improve it—<wbr><a href=https://github.com/carlosgaldino/areweconcurrentyet>please do</a>.</p>
+    </footer>
 
 	</body>
 </html>
